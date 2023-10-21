@@ -10,7 +10,6 @@
         </div>
     </el-card>
 </template>
-
 <script lang="ts" setup>
 defineProps({
     modelImage: {

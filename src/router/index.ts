@@ -11,14 +11,19 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/game',
-      name: 'game',
+      path: '/lookgame',
+      name: 'lookgame',
       component: () => import("@/views/GameScript.vue"),
     },
     {
       path: '/newScript',
       name: 'newScript',
       component: () => import("@/views/CreateNewScript.vue"),
+    },
+    {
+      path: '/game',
+      name: 'game',
+      component: () => import("@/views/Game.vue"),
     }
   ]
 })
