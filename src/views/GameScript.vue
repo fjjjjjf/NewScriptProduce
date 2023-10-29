@@ -15,33 +15,25 @@
                     删除所有剧本
                 </el-button>
             </div>
-            <!-- <ul v-infinite-scroll="load" class="infinite-list" style="overflow: auto">
-    <li v-for="i in count" :key="i" class="infinite-list-item">{{ i }}</li>
-  </ul> -->
-            <div class="col-span-4   outline-pink-500 border-2 mx-10  mt-5 rounded">
-                <div class="flex flex-row  grid grid-cols-4 ">
-                    <div class="col-span-1 ml-4"> <el-select v-model="place"> <el-option v-for="smallplace in Places"
+         
+            <div class=" w-max outline-pink-500 border-2 mx-10  mt-5 rounded">
+                <div class="flex flex-row w-full ">
+                    <div class=" w-full"> <el-select class=" w-full "  v-model="place"> <el-option v-for="smallplace in Places"
                                 :value="smallplace.placename"
                                 @click="handleOption1Click(smallplace.placename)"></el-option></el-select></div>
-                    <div class="col-span-1  ml-4"><el-select v-model="time"><el-option v-for="smalltime in Times"
+                    <div class=" w-full"><el-select  class=" w-full " v-model="time"><el-option v-for="smalltime in Times"
                                 :value="smalltime.timename"
                                 @click="handleOption2Click(smalltime.timename)"></el-option></el-select></div>
-                    <div class="col-span-1  ml-4"> <el-select v-model="type"><el-option v-for="smalltype in Types"
+                    <div class=" w-full"> <el-select   class=" w-full " v-model="type"><el-option v-for="smalltype in Types"
                                 :value="smalltype.typename"
                                 @click="handleOption3Click(smalltype.typename)"></el-option></el-select></div>
-                    <el-button class="col-span-1 mr-4" @click="getAllOption()">查找所有</el-button>
+                    <el-button  class=" w-full" @click="getAllOption()">查找所有</el-button>
                 </div>
 
-                <!-- <div class="flex flex-col w-full col-span-4 " >
-                        <div v-for="(script, index) in Scripts" :key="index" class=" ">
-                            <ScriptCard :scriptId="script.id" :title="script.Title" :description="script.Description"
-                                :place="script.Place" :time="script.Time" :type="script.type" class="mt-5 px-4 mx-4">
-                            </ScriptCard>
-                        </div>
-                    </div> -->
+              
 
                 <div class="flex flex-col w-full col-span-4">
-                    <!-- 使用 Inner Scroll 包装滚动内容 -->
+                 
                     <el-inner-scrollbar style="max-height: 800px; overflow-y: auto;">
                         <div v-for="(script, index) in Scripts" :key="index" >
                             <ScriptCard :scriptId="script.id" :title="script.Title" :description="script.Description"
@@ -139,7 +131,7 @@ const time = ref("时间")
 const type = ref("事件类型")
 
 watch([place, time, type], ([newVal1, newVal2, newVal3], [oldVal1, oldVal2, oldVal3]) => {
-    console.log(newVal1,newVal2,newVal3)
+  
     if(newVal2 == '时间' && newVal3 == '事件类型'&&newVal1 == '地点')
     { Scripts.value = ALLScripts.value}
     else if (newVal2 == '时间' && newVal3 == '事件类型') {
@@ -196,21 +188,19 @@ onMounted(async () => {
         typename: gameTypes.typename.replace(/\s/g, "") || '',
     }));
 Types.value.push({id:0,typename:"事件类型"})
-console.log(Types.value)
-console.log(Times.value)
-console.log(Places.value)
+
 })
 
 const handleOption1Click = (value: any) => {
-    console.log(value)
+
     place.value = value;
 };
 const handleOption2Click = (value: any) => {
-    console.log(value)
+   
     time.value = value;
 };
 const handleOption3Click = (value: any) => {
-    console.log(value)
+    
     type.value = value;
 };
 

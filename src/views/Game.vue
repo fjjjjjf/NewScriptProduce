@@ -57,8 +57,8 @@
         </div>
       </div>
     </el-dialog>
-    <button @click="solve()"> 下一页
-              </button>
+    <!-- <button @click="solve()"> 下一页
+              </button> -->
 
   </div>
 </template>
@@ -134,7 +134,7 @@ interface StoryData {
 }
 const Story: string[] = [];
 const nextPage = async (number1: number, choice: string) => {
-  console.log(number1)
+ 
   if (choice != '游戏结束了！'&&choice != '游戏结束'&&choice != '游戏结束了'&&"结束游戏") {
     if (number1 > 1) {
       currentStoryIndex.value++;
@@ -144,9 +144,7 @@ const nextPage = async (number1: number, choice: string) => {
       isloading.value = true;
       if (choice != '下一页') { Story.push(choice) }
 
-      console.log(Story)
-
-      console.log(game.value[currentStoryIndex.value].des)
+     
       if (currentStoryIndex.value == 0) { Story.push(background1.value + storyDescription.value + background2.value) }
       else Story.push(
         background3.value
@@ -154,7 +152,7 @@ const nextPage = async (number1: number, choice: string) => {
       let data: StoryData = await createStory(Story.join('\n'), ApiKey.value, ModelId.value)
       
       isloading.value = false;
-      console.log(data.choice)
+     
       const choiceArr: string[] = [];
       if (data.choice.length != 0) {
         for (let i = 0; i < data.choice.length; i++) {
@@ -164,7 +162,7 @@ const nextPage = async (number1: number, choice: string) => {
 
           choiceArr.push(content)
         }
-        console.log(choiceArr)
+       
         if (choiceArr.length == 0) {
 
           // for (let i = 0; i < Object.keys(data.choice).length; i++) {
@@ -182,7 +180,7 @@ const nextPage = async (number1: number, choice: string) => {
             choiceArr.push(content);
           }
         }
-        console.log(choiceArr)
+       
         if (data.story != '' && data.choice != null) {
 
           game.value.push({
@@ -191,7 +189,7 @@ const nextPage = async (number1: number, choice: string) => {
           })
         }
         else if (choiceArr.length==0||choiceArr==null||data.choice.every(choice => choice === null) ) {
-          console.log("over")
+         
           game.value.push({
             des: data.story as string,
             choices: [
@@ -200,7 +198,7 @@ const nextPage = async (number1: number, choice: string) => {
           })
         }
       } else {
-        console.log("over")
+        
         game.value.push({
           des: data.story as string,
           choices: [
@@ -211,7 +209,7 @@ const nextPage = async (number1: number, choice: string) => {
 
 
 
-      console.log("11")
+    
       MaxcurrentStoryIndex.value++;
       currentStoryIndex.value++;
       if (MaxcurrentStoryIndex.value > 1) { Story.pop(); }
@@ -226,7 +224,7 @@ const nextPage = async (number1: number, choice: string) => {
     }
   }
   else {
-    console.log('over');
+   
     isOver.value = true
   }
 
@@ -246,7 +244,7 @@ function solve() {
   const data =  "你们决定离开图书馆，前往学校的实验室探索。实验室里弥漫着化学品的味道，各种仪器和实验器材摆放得井井有条。你们开始寻找线索，突然发现了一个锁着的实验室柜子。你们面临以下选择：\n\nA. 尝试破解柜子的密码。\nB. 继续寻找其他线索。\nC. 询问学校管理员关于柜子的信息。\nD. 放弃并离开实验室。\n\n（剩余回合数：12）"
  
   const  choicesText =data.split(/(\n)?\n(?=[ABCD]\.)/);
-            console.log(choicesText.slice(1).filter(item => (item !== '\n')&&(item !== undefined)));
+ console.log(choicesText.slice(1).filter(item => (item !== '\n')&&(item !== undefined)));
   
 
 

@@ -68,9 +68,9 @@
                                                 @click="isCreateNewWord = true, newtypeword = '事件'"> 新建</el-button>
                                         </el-select>
                                     </el-form-item>
-                                    <el-form-item>
-                                        <!-- <el-button @click="dialogVisible = true">结束生成</el-button> -->
-                                    </el-form-item>
+                                    <!-- <el-form-item>
+                                        <el-button @click="dialogVisible = true">结束生成</el-button> 
+                                    </el-form-item> -->
                                 </div>
 
 
@@ -85,6 +85,7 @@
                                 <el-input v-if="!isloading" v-model="textarea" disabled
                                     :autosize="{ minRows: 8, maxRows: 20 }" class="text-2xl" type="textarea" />
 
+                                
                                 <el-skeleton v-else :rows="5" :animated="true" />
                                 <div class="flex flex-row-reverse pt-5">
                                     <el-button type="primary" :disabled="isloading"

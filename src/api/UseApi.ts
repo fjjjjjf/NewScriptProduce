@@ -31,7 +31,7 @@ export const checkApiKey = async (openAIkey: string): Promise<Boolean> => {
             } finally {
                 db.close();
             }
-            console.log("111")
+            
             return true;
 
         } else {
@@ -42,13 +42,17 @@ export const checkApiKey = async (openAIkey: string): Promise<Boolean> => {
             return false;
         }
     } catch (Error) {
-        console.error("发生错误：", Error);
+       
+        ElMessage({
+            message: "API Key 验证失败，请检查您的 API Key 是否正确。",
+            type: "error",
+        });
         return false;
     }
 }
 
 export const checkmodel = async (modelid: string, apikey: string): Promise<Boolean> => {
-    console.log(apikey)
+   
     const model = ref("");
     if (modelid == "0") {
         model.value = "gpt-3.5-turbo"
@@ -113,10 +117,9 @@ export const checkword = async (type: string, input: string, apikey: string): Pr
                 'Authorization': `Bearer ${apikey}`
             }
         })
-        console.log(111)
-        // console.log(response.data)
+      
         if (response.status === 200) {
-            console.log(222)
+          
 
             if (response.data.choices[0].message.content == "Y") {
                 ElMessage({
@@ -162,7 +165,11 @@ export const checkword = async (type: string, input: string, apikey: string): Pr
             return false;
         }
     } catch (Error) {
-        console.error("发生错误：", Error);
+      
+        ElMessage({
+            message: "网络出现错误，请重试",
+            type: "error",
+        });
         return false;
     }
 }
@@ -192,12 +199,10 @@ export const createNewScript = async (type1: string, type2: string, type3: strin
                 'Accept': 'application/json'
             }
         })
-        console.log(111)
-        console.log(response.data)
+     
         if (response.status === 200) {
             const contentJson = JSON.parse(response.data.choices[0].message.content);
 
-            console.log(contentJson);
 
             try {
                 await db.open();
@@ -222,7 +227,7 @@ export const createNewScript = async (type1: string, type2: string, type3: strin
             return '';
         }
     } catch (Error) {
-        console.error("发生错误：", Error);
+      
         ElMessage({
             message: "网络出现错误，请重试",
             type: "error",
@@ -262,7 +267,7 @@ export const createStory = async (description: string, apikey: string, model: st
         });
         return s;
     }
-    console.log(description)
+    
     const MessageArray = description.split("\n");
     const filteredArray = MessageArray.filter(str => str !== "");
     const mess: message[] = []
@@ -299,7 +304,7 @@ export const createStory = async (description: string, apikey: string, model: st
     }
     if(round<=0)
     {
-        console.log(round)
+       
         return {
             story:filteredArray[filteredArray.length-2]+"(由于回合数的限制，我们现在将强制性结束游戏)",
             choice:['游戏结束了！']
@@ -318,16 +323,16 @@ export const createStory = async (description: string, apikey: string, model: st
         const jsonMatch = response.data.choices[0].message.content.match(/\{[\s\S]*\}/);
         if (jsonMatch) {
             const jsonString = jsonMatch[0];
-            console.log(jsonString)
+           
 
             return JSON.parse(jsonString);
 
 
         }
         else{
-            console.log(2)
+            
             const  choicesText = response.data.choices[0].message.content.split(/(\n)?\n(?=[ABCD]\.)/);
-            console.log(choicesText);
+          
             // const options = choicesText.trim().split(/\n/).map((option: string) => {
             //     const matches = option.match(/^([ABCD])\.\s(.*)/);
             //     if (matches && matches.length === 3) {
@@ -351,7 +356,11 @@ export const createStory = async (description: string, apikey: string, model: st
 
 
     } catch (Error) {
-        console.error("发生错误：", Error);
+       
+        ElMessage({
+            message: "AI数据格式返回错误，重新生成中，请耐心等待",
+            type: "error",
+        });
         createStory(description, apikey, model);
     }
 

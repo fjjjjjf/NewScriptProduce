@@ -1,14 +1,14 @@
 <template>
   <div class="flex justify-center  items-center">
-    <div class="grid grid-rows-2">
+    <div class="grid grid-rows-2 h-full">
       <div class="row-span-2  ">
-        <div class="h-36 flex justify-center  items-center">
+        <div class="h-36 flex justify-center  items-center row-span-1">
           <span class=" text-white text-8xl font-bold " ref="typing"></span>
         </div>
-        <div class="row-span-1 grid grid-cols-5 my-10 flex justify-center  items-center ">
+        <div class="row-span-1 h-3/4 grid grid-cols-5 my-10 flex justify-center  items-center ">
           <div class="col-span-1"></div>
           <div class="col-span-1">
-            <el-card class="mx-3 w-8/12 ">
+            <el-card class="mx-3 w-8/12  h-3/4">
               <template #header>
 
                 <span class="flex justify-center text-3xl font-bold "><el-icon size="38">
@@ -21,7 +21,7 @@
               </div>
             </el-card>
           </div>
-          <div class="col-span-1"> <el-card class="mx-3 w-8/12 ">
+          <div class="col-span-1"> <el-card class="mx-3 w-8/12 h-6/12">
               <template #header>
 
                 <span class="flex justify-center text-3xl font-bold "><el-icon size="38">
@@ -142,10 +142,12 @@ const check = async (openAIkey: string) => {
   }
   else {
     if (await checkApiKey(openAIkey)) {
-      console.log("333")
+     
       UserApiKey.value = openAIkey
+      openAIkey='';
       addKeyDialogVisiable.value = !addKeyDialogVisiable.value;
-      console.log(UserApiKey.value);
+    
+      
     }
 
   }
@@ -177,8 +179,7 @@ const inputKeyWindowLoading = ref(false);
 
 function addKey() {
   addKeyDialogVisiable.value = !addKeyDialogVisiable.value;
-  console.log(addKeyDialogVisiable.value);
-  console.log("open addKeyDialog");
+ 
 }
 
 const models = [

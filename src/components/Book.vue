@@ -68,7 +68,7 @@ interface StoryData {
 }
 const Story: string[] = [];
 const nextPage = async (number1: number, choice: string) => {
-  console.log(number1)
+ 
   if (number1 > 1) {
     currentStoryIndex.value++;
   }
@@ -77,15 +77,15 @@ const nextPage = async (number1: number, choice: string) => {
 
     if (choice != '下一页') { Story.push(choice) }
 
-    console.log(Story)
+  
 
-    console.log(game.value[currentStoryIndex.value].des)
+   
     if (currentStoryIndex.value == 0) { Story.push(background1.value + description + background2.value) }
     else Story.push(
       background3.value
     )
     const data: StoryData = await createStory(Story.join('\n'), ApiKey.value, ModelId.value)
-    console.log(data)
+ 
     if (data.story != '' && data.choice != null) {
       
       game.value.push({
@@ -106,7 +106,7 @@ const nextPage = async (number1: number, choice: string) => {
         ]
       })
     }
-    console.log("11")
+   
     MaxcurrentStoryIndex.value++;
     currentStoryIndex.value++;
     Story.push(data.story);
@@ -118,7 +118,7 @@ const nextPage = async (number1: number, choice: string) => {
       type: 'warning',
     });
   }
-  console.log(currentStoryIndex.value, MaxcurrentStoryIndex.value)
+ 
 }
 
 
