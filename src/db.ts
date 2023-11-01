@@ -23,6 +23,16 @@ interface GameScript {
   typename: string;
 }
 
+
+interface HistoryScript {
+  id?: number;
+  title?: string;
+ 
+  story?: string;
+  
+}
+
+
 interface Apikey {
   id?: number;
   apikey: string;
@@ -36,21 +46,25 @@ class MyDatabase extends Dexie {
   type: Dexie.Table<Type, number>;
   gamescript: Dexie.Table<GameScript, number>;
   Apikey: Dexie.Table<Apikey, number>;
+  historyScript: Dexie.Table<HistoryScript,number>;
   constructor() {
     super('myDatabase');
-    this.version(35).stores({
+    this.version(37).stores({
       Apikey: '++id, apikey,model',
       Place: '++id, placename',
       Time: '++id,timename',
       Type: '++id,typename',
-      GameScript: '++id,title,description,placename,timename,typename'
+      GameScript: '++id,title,description,placename,timename,typename',
+
+      HistoryScript: '++id,title,story'
     });
 
     this.Apikey = this.table('Apikey');
     this.place = this.table('Place');
     this.time = this.table('Time');
     this.type = this.table('Type');
-    this.gamescript = this.table('GameScript')
+    this.gamescript = this.table('GameScript');
+    this.historyScript = this.table('HistoryScript');
 
     this.on('populate', () => {
       this.transaction('rw', this.place, this.time, this.type, this.gamescript, async () => {
@@ -80,15 +94,15 @@ export const db = new MyDatabase();
 
 export async function clearData() {
   db.gamescript.clear();
-//  db.place.clear();
-//  db.time.clear();
-// db.type.clear();
+  //  db.place.clear();
+  //  db.time.clear();
+  // db.type.clear();
 
   db.close();
 }
 
 db.transaction('rw', db.place, db.time, db.type, db.gamescript, async function () {
-  
+
   if (await db.place.count() == 0 && await db.time.count() == 0 && await db.type.count() == 0 && await db.gamescript.count() == 0) {
     db.place.bulkAdd([
       { placename: " 学校" },
